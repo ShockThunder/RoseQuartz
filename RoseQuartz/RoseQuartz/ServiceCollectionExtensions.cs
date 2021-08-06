@@ -7,6 +7,7 @@ namespace RoseQuartz
         public static IServiceCollection AddRoseQuartz(this IServiceCollection services)
         {
             services.AddRazorPages();
+            services.ConfigureOptions(typeof(UiConfigureOptions));
             return services;
         }
     }

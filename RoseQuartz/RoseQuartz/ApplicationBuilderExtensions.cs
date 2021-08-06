@@ -13,12 +13,6 @@ namespace RoseQuartz
         public static IApplicationBuilder UseRoseQuartz(this IApplicationBuilder builder)
         {
             builder.UseStaticFiles();
-            builder.UseStaticFiles(new StaticFileOptions()
-            {
-                FileProvider = new PhysicalFileProvider(
-                    Path.Combine(AppContext.BaseDirectory, @"wwwroot")),
-                RequestPath = new PathString("/wwwroot")
-            });
             builder.UseRouting();
 
             builder.UseEndpoints(endpoints => { endpoints.MapRazorPages(); });

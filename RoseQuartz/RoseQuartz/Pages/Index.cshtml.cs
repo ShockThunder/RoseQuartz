@@ -20,6 +20,7 @@ namespace RoseQuartz.Pages
 
         public void OnGet()
         {
+            
         }
     }
 }

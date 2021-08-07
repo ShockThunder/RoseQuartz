@@ -13,6 +13,9 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 
+using Quartz;
+using Quartz.Impl;
+
 using RoseQuartz;
 
 namespace DemoProject
@@ -29,6 +32,7 @@ namespace DemoProject
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddQuartz();
             services.AddRoseQuartz();
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -40,7 +44,13 @@ namespace DemoProject
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.UseRoseQuartz();
+            // Grab the Scheduler instance from the Factory
+            var factory = new StdSchedulerFactory();
+            var scheduler =  factory.GetScheduler().Result;
+            app.UseRoseQuartz(new RoseQuartzOptions()
+            {
+                Scheduler = scheduler
+            });
 
             if (env.IsDevelopment())
             {

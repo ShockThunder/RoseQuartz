@@ -1,16 +1,13 @@
 ﻿using System;
-using System.IO;
-using System.Reflection;
 
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.FileProviders;
 
 namespace RoseQuartz
 {
     public static class ApplicationBuilderExtensions
     {
-        public static IApplicationBuilder UseRoseQuartz(this IApplicationBuilder builder, RoseQuartzOptions options, Action<Services> configure = null)
+        public static void UseRoseQuartz(this IApplicationBuilder builder, RoseQuartzOptions options,
+            Action<Services> configure = null)
         {
             options = options ?? throw new ArgumentNullException(nameof(options));
             
@@ -27,7 +24,6 @@ namespace RoseQuartz
             builder.UseRouting();
 
             builder.UseEndpoints(endpoints => { endpoints.MapRazorPages(); });
-            return builder;
         }
     }
 }

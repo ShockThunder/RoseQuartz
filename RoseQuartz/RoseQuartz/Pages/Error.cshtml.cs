@@ -1,8 +1,6 @@
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+
+using JetBrains.Annotations;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -25,9 +23,11 @@ namespace RoseQuartz.Pages
             _logger = logger;
         }
 
+        [UsedImplicitly]
         public void OnGet()
         {
             RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier;
+            _logger.Log(LogLevel.Information, $"Request = {RequestId}");
         }
     }
 }
